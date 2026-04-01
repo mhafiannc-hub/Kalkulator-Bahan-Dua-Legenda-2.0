@@ -12,19 +12,11 @@
 <body class="pb-20">
 
     <div id="app" class="max-w-5xl mx-auto p-4 md:p-10">
+        
         <header class="flex flex-col items-center mb-12 animate-slide-up">
-            <div class="relative group cursor-pointer mb-6" onclick="document.getElementById('logo-input').click()">
-                <div id="logo-display" class="flex items-center justify-center transition-transform hover:scale-105">
-                    <div id="logo-empty" class="h-40 w-64 bg-white border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center text-slate-400 group-hover:border-indigo-300 group-hover:text-indigo-400 transition-colors shadow-sm">
-                        <i data-lucide="image-plus" class="w-10 h-10 mb-2"></i>
-                        <span class="text-xs font-bold tracking-widest uppercase">Klik Unggah Logo</span>
-                    </div>
-                    <img id="logo-img" class="h-44 md:h-52 object-contain hidden drop-shadow-2xl" alt="Logo Dua Legenda">
-                </div>
-                <input type="file" id="logo-input" class="hidden" accept="image/*" onchange="app.handleLogo(event)">
-                <div class="absolute -bottom-2 -right-2 bg-indigo-600 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity no-print">
-                    <i data-lucide="camera" class="w-4 h-4"></i>
-                </div>
+            <div class="mb-4 text-center">
+                <p class="text-[10px] font-bold text-slate-400 tracking-[0.3em] uppercase mb-2">Copyright DUA LEGENDA GRUP</p>
+                <div class="h-1 w-12 bg-indigo-600 mx-auto rounded-full"></div>
             </div>
             
             <div class="text-center">
@@ -45,12 +37,7 @@
         </nav>
 
         <main id="content-container" class="animate-slide-up" style="animation-delay: 0.2s"></main>
+
     </div>
 
-    <div id="modal-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4 transition-all duration-300 opacity-0">
-        <div id="modal-body" class="bg-white rounded-[2rem] max-w-lg w-full p-8 shadow-2xl scale-90 transition-transform duration-300"></div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    <div id="modal-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items
