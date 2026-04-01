@@ -1,18 +1,14 @@
-/* Import Font dari Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-/* Variabel Utama */
 :root { 
     --primary: #4f46e5; 
 }
 
-/* Base Style */
 body { 
     font-family: 'Plus Jakarta Sans', sans-serif; 
     background-color: #f8fafc; 
 }
 
-/* Tab Navigation - State Aktif */
 .tab-active { 
     background-color: white; 
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
@@ -20,31 +16,20 @@ body {
     font-weight: 700; 
 }
 
-/* Header dengan Efek Glassmorphism */
 .glass-header {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
 }
 
-/* Animasi Muncul dari Bawah */
 @keyframes slideUp {
-    from { 
-        opacity: 0; 
-        transform: translateY(20px); 
-    }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-slide-up { 
     animation: slideUp 0.5s ease-out forwards; 
 }
 
-/* Pengaturan Cetak (Print) */
 @media print {
-    .no-print { 
-        display: none !important; 
-    }
+    .no-print { display: none !important; }
 }
