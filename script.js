@@ -1,6 +1,5 @@
 const state = {
     tab: 'bahan',
-    logo: null,
     ingredients: [
         { id: 1, name: 'Biji Kopi Arabica', unit: 'gr', price: 250, initial: 1000 },
         { id: 2, name: 'Susu UHT', unit: 'ml', price: 22, initial: 5000 },
@@ -24,36 +23,12 @@ const app = {
     init() {
         const saved = localStorage.getItem('dua_legenda_db');
         if (saved) Object.assign(state, JSON.parse(saved));
-        this.updateLogoDisplay();
         this.render();
         lucide.createIcons();
     },
 
     save() {
         localStorage.setItem('dua_legenda_db', JSON.stringify(state));
-    },
-
-    handleLogo(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                state.logo = event.target.result;
-                this.save();
-                this.updateLogoDisplay();
-            };
-            reader.readAsDataURL(file);
-        }
-    },
-
-    updateLogoDisplay() {
-        const img = document.getElementById('logo-img');
-        const empty = document.getElementById('logo-empty');
-        if (state.logo) {
-            img.src = state.logo;
-            img.classList.remove('hidden');
-            empty.classList.add('hidden');
-        }
     },
 
     setTab(t) {
@@ -64,6 +39,7 @@ const app = {
     render() {
         const container = document.getElementById('content-container');
         if (!container) return;
+        
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('tab-active'));
         const activeTab = document.getElementById(`tab-${state.tab}`);
         if (activeTab) activeTab.classList.add('tab-active');
@@ -77,6 +53,7 @@ const app = {
         lucide.createIcons();
     },
 
+    // --- VIEW: BAHAN BAKU ---
     viewBahan(el) {
         el.innerHTML = `
             <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
@@ -112,6 +89,7 @@ const app = {
         `;
     },
 
+    // --- VIEW: RESEP ---
     viewResep(el) {
         el.innerHTML = `
             <div id="print-area-resep">
@@ -147,6 +125,7 @@ const app = {
         `;
     },
 
+    // --- VIEW: INPUT ---
     viewInput(el) {
         el.innerHTML = `
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -214,6 +193,7 @@ const app = {
         `;
     },
 
+    // --- VIEW: LAPORAN ---
     viewLaporan(el) {
         const report = this.calc();
         el.innerHTML = `
@@ -265,6 +245,7 @@ const app = {
         `;
     },
 
+    // --- LOGIC ---
     calc() {
         return state.ingredients.map(ing => {
             const buy = state.history.purchases.filter(p => p.id == ing.id).reduce((a, b) => a + b.qty, 0);
@@ -330,6 +311,28 @@ const app = {
             this.save();
             this.render();
         }
+    },
+
+    // --- MODALS ---
+    openModal(html) {
+        const back = document.getElementById('modal-backdrop');
+        const body = document.getElementById('modal-body');
+        body.innerHTML = html;
+        back.classList.remove('hidden'); back.classList.add('flex');
+        setTimeout(() => { 
+            back.classList.replace('opacity-0', 'opacity-100'); 
+            body.classList.replace('scale-90', 'scale-100'); 
+        }, 10);
+    },
+
+    closeModal() {
+        const back = document.getElementById('modal-backdrop');
+        const body = document.getElementById('modal-body');
+        back.classList.replace('opacity-100', 'opacity-0'); 
+        body.classList.replace('scale-100', 'scale-90');
+        setTimeout(() => { 
+            back.classList.replace('flex', 'hidden'); 
+        }, 300);
     },
 
     modalBahan() {
@@ -409,21 +412,6 @@ const app = {
         }));
         state.menus.push({ id: Date.now(), name: form.querySelector('[name="name"]').value, recipe });
         this.save(); this.closeModal(); this.render();
-    },
-
-    openModal(html) {
-        const back = document.getElementById('modal-backdrop');
-        const body = document.getElementById('modal-body');
-        body.innerHTML = html;
-        back.classList.remove('hidden'); back.classList.add('flex');
-        setTimeout(() => { back.classList.replace('opacity-0', 'opacity-100'); body.classList.replace('scale-90', 'scale-100'); }, 10);
-    },
-
-    closeModal() {
-        const back = document.getElementById('modal-backdrop');
-        const body = document.getElementById('modal-body');
-        back.classList.replace('opacity-100', 'opacity-0'); body.classList.replace('scale-100', 'scale-90');
-        setTimeout(() => { back.classList.replace('flex', 'hidden'); }, 300);
     }
 };
 
